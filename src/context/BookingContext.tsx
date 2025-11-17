@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useAuth } from './AuthContext';
+import { API_BOOKINGS_URL } from '../config/api';
 
 export interface Bike {
   id: number;
@@ -48,7 +49,7 @@ interface BookingProviderProps {
   children: ReactNode;
 }
 
-const API_BASE_URL = 'http://localhost:5000/api/bookings';
+const API_BASE_URL = API_BOOKINGS_URL;
 
 export const BookingProvider = ({ children }: BookingProviderProps) => {
   const { token } = useAuth();

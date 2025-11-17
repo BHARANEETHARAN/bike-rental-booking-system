@@ -7,6 +7,7 @@ import { Label } from '../components/ui/label';
 import { Card } from '../components/ui/card';
 import { toast } from 'sonner@2.0.3';
 import { useAuth } from '../context/AuthContext';
+import { API_AUTH_URL } from '../config/api';
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ export default function RegisterPage() {
     setLoading(true);
     try {
       // Create account without automatic login
-      const response = await fetch('http://localhost:5000/api/auth/register', {
+      const response = await fetch(`${API_AUTH_URL}/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

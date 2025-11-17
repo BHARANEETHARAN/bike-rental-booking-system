@@ -7,6 +7,7 @@ import { Label } from '../components/ui/label';
 import { Card } from '../components/ui/card';
 import { Alert, AlertDescription } from '../components/ui/alert';
 import { toast } from 'sonner';
+import { API_AUTH_URL } from '../config/api';
 
 export default function AdminLoginPage() {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ export default function AdminLoginPage() {
     setLoading(true);
     try {
       // Call backend login API
-      const response = await fetch('http://localhost:5000/api/auth/login', {
+      const response = await fetch(`${API_AUTH_URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

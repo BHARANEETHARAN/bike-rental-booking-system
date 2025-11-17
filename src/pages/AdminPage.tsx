@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../co
 import { Badge } from '../components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../components/ui/table';
 import { useAuth } from '../context/AuthContext';
+import { API_BOOKINGS_URL } from '../config/api';
 
 interface AdminBooking {
   _id: string;
@@ -64,7 +65,7 @@ export default function AdminPage() {
       setLoading(true);
       
       // Fetch all bookings
-      const response = await fetch('http://localhost:5000/api/bookings/all', {
+      const response = await fetch(`${API_BOOKINGS_URL}/all`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -96,7 +97,7 @@ export default function AdminPage() {
 
   const updateBookingStatus = async (bookingId: string, newStatus: 'upcoming' | 'completed' | 'cancelled') => {
     try {
-      const response = await fetch(`http://localhost:5000/api/bookings/${bookingId}/status`, {
+      const response = await fetch(`${API_BOOKINGS_URL}/${bookingId}/status`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

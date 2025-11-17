@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { API_AUTH_URL } from '../config/api';
 
 interface User {
   id: string;
@@ -30,7 +31,7 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
-const API_BASE_URL = 'http://localhost:5000/api/auth';
+const API_BASE_URL = API_AUTH_URL;
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);

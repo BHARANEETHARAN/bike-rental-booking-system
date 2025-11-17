@@ -22,6 +22,7 @@ import { Label } from '../components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../components/ui/dialog';
 import { toast } from 'sonner';
+import { API_BOOKINGS_URL } from '../config/api';
 
 interface AdminBooking {
   _id: string;
@@ -108,7 +109,7 @@ export default function AdminDashboardPage() {
       // Fetch bookings from backend
       const token = localStorage.getItem('token'); // Regular user token for API calls
       if (token) {
-        const response = await fetch('http://localhost:5000/api/bookings/all', {
+        const response = await fetch(`${API_BOOKINGS_URL}/all`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
