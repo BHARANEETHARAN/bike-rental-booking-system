@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useAuth } from './AuthContext';
 import { API_BOOKINGS_URL } from '../config/api';
+import { toast } from 'sonner';
 
 export interface Bike {
   id: number;
@@ -230,32 +231,41 @@ export const BookingProvider = ({ children }: BookingProviderProps) => {
     }
   };
 
-  const addBooking = async (booking: Omit<Booking, 'id' | 'status' | 'totalAmount'>) => {
+    const addBooking = async (bookingData: Omit<Booking, 'id' | 'status' | 'totalAmount'>) => {
     if (!token) {
-      throw new Error('You must be logged in to make a booking');
+      throw new Error('User not authenticated');
     }
 
     setLoading(true);
     try {
-      const response = await fetch(API_BASE_URL, {
+      const start = new Date(`${bookingData.date}T${bookingData.startTime}`);
+      const end = new Date(`${bookingData.date}T${bookingData.endTime}`);
+      const hours = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60));
+      const totalAmount = hours * bookingData.pricePerHour;
+
+      const response = await fetch(`${API_BASE_URL}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify(booking),
+        body: JSON.stringify({
+          ...bookingData,
+          totalAmount,
+        }),
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
-        throw new Error(data.message || 'Booking failed');
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to add booking');
       }
 
-      // Add the new booking to local state
-      setBookings(prev => [data.booking, ...prev]);
-    } catch (error) {
-      console.error('Error creating booking:', error);
+      const data = await response.json();
+      setBookings([...bookings, data]);
+      toast.success('Booking created successfully!');
+    } catch (error: any) {
+      console.error('Booking error:', error);
+      toast.error(error.message || 'Failed to create booking');
       throw error;
     } finally {
       setLoading(false);
