@@ -45,6 +45,17 @@ mongoose.connect(process.env.MONGO_URI, {
 app.use('/api/auth', authRoutes);
 app.use('/api/bookings', bookingRoutes);
 
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ ok: true, message: 'Backend is running', timestamp: new Date() });
+});
+
+// Root endpoint
 app.get('/', (req, res) => {
-  res.send({ ok: true, message: 'Bike rental backend' });
+  res.json({ ok: true, message: 'Bike rental backend' });
+});
+
+// 404 handler - return JSON not HTML
+app.use((req, res) => {
+  res.status(404).json({ message: 'Endpoint not found' });
 });

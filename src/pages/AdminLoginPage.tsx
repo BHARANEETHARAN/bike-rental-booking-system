@@ -28,6 +28,7 @@ export default function AdminLoginPage() {
     setLoading(true);
     try {
       // Call backend login API
+      console.log('Login API URL:', `${API_AUTH_URL}/login`);
       const response = await fetch(`${API_AUTH_URL}/login`, {
         method: 'POST',
         headers: {
@@ -38,6 +39,15 @@ export default function AdminLoginPage() {
           password: formData.password,
         }),
       });
+
+      // Check response content type
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        console.error('Response is not JSON:', contentType);
+        const text = await response.text();
+        console.error('Response body:', text);
+        throw new Error(`Server error: Expected JSON but got ${contentType}`);
+      }
 
       const data = await response.json();
 

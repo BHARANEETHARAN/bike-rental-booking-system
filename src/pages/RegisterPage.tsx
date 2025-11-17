@@ -41,6 +41,7 @@ export default function RegisterPage() {
     setLoading(true);
     try {
       // Create account without automatic login
+      console.log('Register API URL:', `${API_AUTH_URL}/register`);
       const response = await fetch(`${API_AUTH_URL}/register`, {
         method: 'POST',
         headers: {
@@ -52,6 +53,15 @@ export default function RegisterPage() {
           password: formData.password,
         }),
       });
+
+      // Check response content type
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        console.error('Response is not JSON:', contentType);
+        const text = await response.text();
+        console.error('Response body:', text);
+        throw new Error(`Server error: Expected JSON but got ${contentType}`);
+      }
 
       const data = await response.json();
 
