@@ -1,4 +1,3 @@
-
 # 🚴‍♂️ Smart Bike Rental Booking System
 
 A modern, full-stack bike rental application built with React + TypeScript frontend and Express + MongoDB backend. Features user authentication, secure booking management, and a responsive design.
@@ -14,8 +13,9 @@ A modern, full-stack bike rental application built with React + TypeScript front
 ### 🚲 Bike Management
 - **Bike Catalog** - Browse available bikes with detailed information
 - **Bike Categories** - Gear and Non-gear bike options
-- **Pricing Display** - Transparent hourly rental rates
+- **Pricing Display** - Transparent hourly rental rates (in Indian Rupees ₹)
 - **High-Quality Images** - Visual bike showcase
+- **Admin Panel** - Add, edit, delete bikes from inventory
 
 ### 📅 Booking System
 - **Real-time Booking** - Instant booking confirmation
@@ -60,8 +60,8 @@ A modern, full-stack bike rental application built with React + TypeScript front
 
 ### 1. Clone the Repository
 ```bash
-git clone <repository-url>
-cd "Bike Rental Booking System"
+git clone https://github.com/BHARANEETHARAN/bike-rental-booking-system.git
+cd "bike-rental-booking-system"
 ```
 
 ### 2. Setup Backend
@@ -74,7 +74,7 @@ Copy-Item .\.env.example .\.env
 # Edit .env with your MongoDB URI and JWT secret
 
 # Start the server
-npm run dev
+npm start
 ```
 
 The backend will run on `http://localhost:5000`
@@ -88,13 +88,13 @@ npm install
 npm run dev
 ```
 
-The frontend will run on `http://localhost:5173`
+The frontend will run on `http://localhost:3001`
 
 ### 4. Environment Variables
 
 Create `server/.env` file:
 ```env
-MONGO_URI=mongodb://localhost:27017/bikerental
+MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/bikerental
 JWT_SECRET=your_super_secure_jwt_secret_here
 PORT=5000
 ```
@@ -110,7 +110,8 @@ PORT=5000
 ### 2. **Browse Bikes**
    - Navigate to "Bikes" section
    - View available bikes with details
-   - See pricing and bike specifications
+   - See pricing in Indian Rupees (₹)
+   - Check bike specifications
 
 ### 3. **Make a Booking**
    - Click "Book Now" on any bike
@@ -127,6 +128,14 @@ PORT=5000
    - View all your bookings
    - See booking status and details
    - Track upcoming and completed rentals
+
+### 5. **Admin Features** (Demo Credentials)
+   - Email: `bharanipt2006@gmail.com`
+   - Password: `bharanee123`
+   - Add new bikes to inventory
+   - Edit existing bike details
+   - Delete bikes from fleet
+   - View all bookings and revenue
 
 ## 🔧 API Documentation
 
@@ -152,6 +161,7 @@ PATCH  /api/bookings/:id/status # Update booking status
 - **Protected Routes** - Frontend and backend route protection
 - **Input Validation** - Form validation and sanitization
 - **CORS Configuration** - Controlled cross-origin requests
+- **Admin Verification** - Protected admin endpoints
 
 ## 📱 Responsive Design
 
@@ -174,13 +184,14 @@ The application is fully responsive and works seamlessly across:
 - **Protected Pages**: Booking, My Bookings
 - **Protected API**: All booking endpoints require valid JWT
 - **Data Isolation**: Users can only see their own bookings
+- **Admin Access**: Only authorized admins can access admin panel
 
 ## 🛠️ Development
 
 ### Backend Development
 ```bash
 cd server
-npm run dev  # Starts with nodemon for auto-restart
+npm start  # Starts Express server
 ```
 
 ### Frontend Development
@@ -194,7 +205,7 @@ npm run dev  # Starts Vite dev server with hot reload
 npm run build
 
 # Backend
-npm start
+npm install && npm start
 ```
 
 ## 📊 Database Schema
@@ -237,10 +248,11 @@ npm start
 - **Payment Integration** - Stripe/PayPal integration
 - **Email Notifications** - Booking confirmations via email
 - **Bike Availability** - Real-time availability tracking
-- **Admin Dashboard** - Bike and booking management
+- **Advanced Admin Dashboard** - Analytics and reports
 - **Rating System** - User reviews and ratings
 - **Location Services** - GPS-based bike locations
 - **Mobile App** - React Native mobile application
+- **Geofencing** - Bike drop-off zones
 
 ## 🤝 Contributing
 
@@ -252,13 +264,12 @@ npm start
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 ## 👥 Support
 
-For support, email [your-email@example.com] or create an issue in the repository.
+For support, create an issue in the repository.
 
 ---
 
 **Made with ❤️ for the biking community**
-  
